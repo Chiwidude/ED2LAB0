@@ -1,22 +1,31 @@
 package android.estructurasii.lab0;
 
 import android.estructurasii.lab0.Clases.Canción;
+import android.estructurasii.lab0.Clases.ElAdaptador;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     public static HashMap<String,Canción> Lista = new HashMap<>();
 
     RecyclerView MyRecyclerView;
+    ElAdaptador adapter1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         SetData();
         MyRecyclerView = (RecyclerView)findViewById(R.id.RecyclerView1);
+        MyRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter1 = new ElAdaptador(this, Lista);
+        MyRecyclerView.setAdapter(adapter1);
+
+
 
     }
 
