@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         Lista.put("What Ive Done", new Canción("What ive Done", 3.25, "Linkin Park", "Minutes to Midnight"));
         Lista.put("Burn It Down", new Canción("Burn It Down", 3.50, "Linkin Park", "Living Things"));
         Lista.put("Waiting For The End", new Canción("Waiting For The End", 3.51, "Linkin Park", "A Thousand Suns"));
+        Lista.put("Heaven To Me ", new Canción("Heaven To Me", 2.55, "Don Diablo", "Heaven To Me"));
 
     }
 }
