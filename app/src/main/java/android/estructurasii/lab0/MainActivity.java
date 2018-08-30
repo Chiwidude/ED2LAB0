@@ -3,17 +3,26 @@ package android.estructurasii.lab0;
 import android.estructurasii.lab0.Clases.Canción;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
     public static HashMap<String,Canción> Lista = new HashMap<>();
 
+    RecyclerView MyRecyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        SetData();
+        MyRecyclerView = (RecyclerView)findViewById(R.id.RecyclerView1);
+
     }
+
+    //
+    //Este método agrega los datos al HashMap, para su posterior uso
+    //
     private void SetData(){
         Lista.put("Living La Vida Loca", new Canción("Living La Vida Loca", 4.03, "Ricky Martin", "Ricky Martin"));
         Lista.put("SexyBack", new Canción("SexyBack", 4.02, "Justin Timberlake", "FutureSex/LoveSounds"));
