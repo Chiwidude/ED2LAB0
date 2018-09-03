@@ -12,7 +12,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     public static HashMap<String,Canción> Lista = new HashMap<>();
-
+//variables
     RecyclerView MyRecyclerView;
     ElAdaptador adapter1;
     @Override

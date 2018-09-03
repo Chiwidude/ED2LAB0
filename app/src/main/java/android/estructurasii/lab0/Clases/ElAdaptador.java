@@ -13,14 +13,19 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
+import java.util.stream.Collectors;
 
 public class ElAdaptador extends RecyclerView.Adapter<ElAdaptador.CancionViewHolder> implements View.OnClickListener{
 private Context MyContext;
 private HashMap<String,Canción> Biblioteca;
+private ArrayList<String> keys;
     public ElAdaptador(Context miContexto, HashMap<String,Canción>biblioteca){
         this.MyContext = miContexto;
         this.Biblioteca = biblioteca;
+        keys = new ArrayList(this.Biblioteca.keySet());
     }
     @NonNull
     @Override
@@ -33,6 +38,12 @@ private HashMap<String,Canción> Biblioteca;
 
     @Override
     public void onBindViewHolder(@NonNull CancionViewHolder holder, int position) {
+       Canción Song = Biblioteca.get(keys.get(position));
+        holder.textView1.setText(Song.getNombre());
+        holder.textView2.setText(Song.getArtista());
+        holder.textView3.setText(Song.getAlbum());
+        holder.textView4.setText(String.format("%.2f",Song.getDuración()));
+
 
     }
     @Override
