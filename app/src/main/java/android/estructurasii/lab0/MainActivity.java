@@ -2,28 +2,70 @@ package android.estructurasii.lab0;
 
 import android.estructurasii.lab0.Clases.Canción;
 import android.estructurasii.lab0.Clases.ElAdaptador;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.EditText;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
-    public static HashMap<String,Canción> Lista = new HashMap<>();
-//variables
+    public static HashMap<String, Canción> Lista = new HashMap<>();
+    ArrayList<String> llaves;
+    //variables
     RecyclerView MyRecyclerView;
     ElAdaptador adapter1;
+    @BindView(R.id.Search1)
+    EditText Search1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Search1 = (EditText) findViewById(R.id.Search1);
         SetData();
-        MyRecyclerView = (RecyclerView)findViewById(R.id.RecyclerView1);
+        llaves = new ArrayList(this.Lista.keySet());
+        Search1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                Search(s.toString());
+            }
+        });
+        MyRecyclerView = (RecyclerView) findViewById(R.id.RecyclerView1);
         MyRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter1 = new ElAdaptador(this, Lista);
         MyRecyclerView.setAdapter(adapter1);
+
+
+    }
+
+    private void Search(String s) {
+        HashMap<String, Canción> searchList = new HashMap<>();
+        for (Canción item:Lista.values()){
+            if(item.getNombre().toLowerCase().contains(s.toLowerCase())){
+                searchList.put(item.getNombre(),item);
+            }
+            llaves.clear();
+            llaves.addAll(searchList.keySet());
+            adapter1.Search(searchList,llaves);
+        }
 
 
 
@@ -32,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
     //
     //Este método agrega los datos al HashMap, para su posterior uso
     //
-    private void SetData(){
+    private void SetData() {
         Lista.put("Living La Vida Loca", new Canción("Living La Vida Loca", 4.03, "Ricky Martin", "Ricky Martin"));
         Lista.put("SexyBack", new Canción("SexyBack", 4.02, "Justin Timberlake", "FutureSex/LoveSounds"));
         Lista.put("Mirrors", new Canción("Mirrors", 8.04, "Justin Timberlake", "The 20/20 Experience"));

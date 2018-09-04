@@ -18,14 +18,15 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-public class ElAdaptador extends RecyclerView.Adapter<ElAdaptador.CancionViewHolder> implements View.OnClickListener{
+public class ElAdaptador extends RecyclerView.Adapter<ElAdaptador.CancionViewHolder>{
 private Context MyContext;
 private HashMap<String,Canción> Biblioteca;
-private ArrayList<String> keys;
+private static ArrayList<String> keys;
     public ElAdaptador(Context miContexto, HashMap<String,Canción>biblioteca){
         this.MyContext = miContexto;
         this.Biblioteca = biblioteca;
         keys = new ArrayList(this.Biblioteca.keySet());
+
     }
     @NonNull
     @Override
@@ -38,29 +39,30 @@ private ArrayList<String> keys;
 
     @Override
     public void onBindViewHolder(@NonNull CancionViewHolder holder, int position) {
-       Canción Song = Biblioteca.get(keys.get(position));
+        Canción Song = Biblioteca.get(keys.get(position));
         holder.textView1.setText(Song.getNombre());
         holder.textView2.setText(Song.getArtista());
         holder.textView3.setText(Song.getAlbum());
-        holder.textView4.setText(String.format("%.2f",Song.getDuración()));
+        holder.textView4.setText(String.format("%.2f", Song.getDuración()));
 
 
     }
     @Override
     public int getItemCount() {
-        return 0;
+        return Biblioteca.size();
+    }
+    public void Search(HashMap<String,Canción> toSearch,ArrayList<String> llaves){
+        keys = llaves;
+        Biblioteca = toSearch;
+        notifyDataSetChanged();
     }
 
-    @Override
-    public void onClick(View v) {
 
-    }
-
-    class CancionViewHolder extends RecyclerView.ViewHolder {
-            TextView textView1;
-            TextView textView2;
-            TextView textView3;
-            TextView textView4;
+   public static class CancionViewHolder extends RecyclerView.ViewHolder {
+           public TextView textView1;
+           public TextView textView2;
+           public TextView textView3;
+           public TextView textView4;
 
         public CancionViewHolder(@NonNull View itemView) {
 
