@@ -1,5 +1,6 @@
 package android.estructurasii.lab0;
 
+import android.content.Intent;
 import android.estructurasii.lab0.Clases.Canción;
 import android.estructurasii.lab0.Clases.ElAdaptador;
 import android.os.Bundle;
@@ -8,6 +9,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import java.util.ArrayList;
@@ -25,9 +28,12 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.Search1)
     EditText Search1;
 
+    Button VerPlayList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        VerPlayList = (Button)findViewById(R.id.bVerPL);
         setContentView(R.layout.activity_main);
         Search1 = (EditText) findViewById(R.id.Search1);
         SetData();
@@ -53,6 +59,14 @@ public class MainActivity extends AppCompatActivity {
         adapter1 = new ElAdaptador(this, Lista);
         MyRecyclerView.setAdapter(adapter1);
 
+        VerPlayList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent VerPlayList = new Intent(MainActivity.this, playlist.class);
+
+            }
+        });
 
     }
 

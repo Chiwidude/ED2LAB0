@@ -40,12 +40,20 @@
 
     <Button
         android:id="@+id/bAddToPL"
-        android:layout_width="match_parent"
+        android:layout_width="184dp"
         android:layout_height="wrap_content"
         android:layout_above="@+id/RecyclerView1"
         android:layout_alignStart="@+id/textView"
         android:layout_marginBottom="-48dp"
         android:layout_marginStart="-31dp"
         android:text="Agregar a PlayList" />
+
+    <Button
+        android:id="@+id/bVerPL"
+        android:layout_width="198dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Search1"
+        android:layout_toEndOf="@+id/bAddToPL"
+        android:text="Ver PlayList" />
 
 </RelativeLayout>
