@@ -12,6 +12,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,6 +23,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity {
     public static HashMap<String, Canción> Lista = new HashMap<>();
     ArrayList<String> llaves;
+    ArrayList<Canción> aPlayList;
     //variables
     RecyclerView MyRecyclerView;
     ElAdaptador adapter1;
@@ -29,15 +31,16 @@ public class MainActivity extends AppCompatActivity {
     EditText Search1;
 
     Button VerPlayList;
+    Button AgregarAPL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        VerPlayList = (Button)findViewById(R.id.bVerPL);
         setContentView(R.layout.activity_main);
         Search1 = (EditText) findViewById(R.id.Search1);
         SetData();
         llaves = new ArrayList(this.Lista.keySet());
+        aPlayList = new ArrayList<Canción>();
         Search1.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -58,16 +61,24 @@ public class MainActivity extends AppCompatActivity {
         MyRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter1 = new ElAdaptador(this, Lista);
         MyRecyclerView.setAdapter(adapter1);
-
+        VerPlayList = (Button)findViewById(R.id.bVerPL);
         VerPlayList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent VerPlayList = new Intent(MainActivity.this, playlist.class);
+                Intent SeePlayList = new Intent(MainActivity.this, playlist.class);
+                startActivity(SeePlayList);
+            }
+        });
+        AgregarAPL = (Button)findViewById(R.id.bAddToPL);
+        AgregarAPL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String NombreSearch = Search1.getText().toString();
+                AgregarAPlayList(NombreSearch);
 
             }
         });
-
     }
 
     private void Search(String s) {
@@ -110,5 +121,28 @@ public class MainActivity extends AppCompatActivity {
         Lista.put("Waiting For The End", new Canción("Waiting For The End", 3.51, "Linkin Park", "A Thousand Suns"));
         Lista.put("Heaven To Me ", new Canción("Heaven To Me", 2.55, "Don Diablo", "Heaven To Me"));
 
+    }
+
+    // Agrega Canción a la PlayList
+    public void AgregarAPlayList(String s)
+    {
+        HashMap<String, Canción> searchList = new HashMap<>();
+        int Existe = 0;
+        String SongName = "";
+        for (Canción item:Lista.values()){
+            if(item.getNombre().toLowerCase().equals(s.toLowerCase())){
+                Existe = 1;
+                Canción Song = new Canción(item.getNombre().toString(), ((double) item.getDuración()), item.getArtista().toString(), item.getAlbum().toString());
+                SongName = item.getNombre().toString();
+                aPlayList.add(Song);
+                Toast.makeText( MainActivity.this, SongName + "Agregada a la Lista", Toast.LENGTH_LONG).show();
+                Search1.setText("");
+            }
+
+    }
+        if (Existe == 0){
+            Toast.makeText( MainActivity.this, "Canción No Encontrada, Vuelva a Buscar", Toast.LENGTH_LONG).show();
+            Search1.setText("");
+        }
     }
 }
