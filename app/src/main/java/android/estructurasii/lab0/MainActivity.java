@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity {
     public static HashMap<String, Canción> Lista = new HashMap<>();
     ArrayList<String> llaves;
-    ArrayList<Canción> aPlayList;
+    public ArrayList<Canción> aPlayList;
     //variables
     RecyclerView MyRecyclerView;
     ElAdaptador adapter1;
@@ -67,6 +67,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent SeePlayList = new Intent(MainActivity.this, playlist.class);
+                if(aPlayList.isEmpty())
+                {
+                    Canción Cancion = new Canción("Vacío", 0, "Vacío", "Vacío");
+                    aPlayList.add(Cancion);
+                }
+                SeePlayList.putExtra("aPlayList", aPlayList);
                 startActivity(SeePlayList);
             }
         });

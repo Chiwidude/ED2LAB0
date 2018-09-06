@@ -1,6 +1,8 @@
 package android.estructurasii.lab0.Clases;
 
-public class Canción {
+import java.io.Serializable;
+
+public class Canción implements Serializable {
     private String Nombre;
     private double Duración;
     private String Artista;
